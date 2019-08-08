@@ -73,8 +73,7 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
-    raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].moves.include?(end_pos)
-    # change the above error back to check 'valid_moves' rather than 'moves' later
+    raise InvalidMoveError.new("The selected piece can not move to this position") unless self[start_pos].valid_moves.include?(end_pos)
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
