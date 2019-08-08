@@ -9,7 +9,16 @@ class Display
     @cursor = Cursor.new([0,0], board)
   end
 
+  def color_cursor(pos)
+    current_cursor = cursor.cursor_pos
+    if current_cursor == pos && cursor.selected
+      return :blue
+    end
+    :red
+  end
+
   def render
+    cursor.get_input
     curs = cursor.cursor_pos
     top_string = "  a b c d e f g h  "
     puts top_string
@@ -20,7 +29,7 @@ class Display
         row_str += " "
         pos = [idx1, idx2]
         sym_str = board[pos].symbol.to_s
-        sym_str = sym_str.colorize(:blue) if pos == curs
+        sym_str = sym_str.colorize(color_cursor(pos)) if curs == pos
         row_str += sym_str
       end
       puts row_str
@@ -32,4 +41,12 @@ class Display
   private
 
   attr_reader :board, :cursor
+end
+
+test = Board.new
+disp = Display.new(test)
+t = true
+
+until t == false
+  disp.render
 end
