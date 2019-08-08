@@ -8,7 +8,7 @@ class NullPiece < Piece
 
   def initialize
     @pos = nil
-    @symbol = :Np
+    @symbol = :*
     @color = :grey
     @board = board
   end

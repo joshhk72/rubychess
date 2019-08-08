@@ -5,7 +5,7 @@ class Knight < Piece
 
   def initialize(color, pos, board)
     super(color, pos, board)
-    @symbol = :Kn
+    @symbol = :N
   end
 
   def move_diffs
