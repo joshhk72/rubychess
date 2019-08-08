@@ -21,7 +21,7 @@ class Piece
   def valid_moves # phase 3 stuff
     moves.reject do |future_pos|
       new_board = board.deep_dup
-      new_board.move_piece(pos, future_pos)
+      new_board.move_piece!(pos, future_pos)
       new_board.in_check?(color)
     end
   end

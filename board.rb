@@ -17,6 +17,9 @@ class Board
   class InvalidMoveError < ArgumentError
   end
 
+  class CheckError < ArgumentError
+  end
+
   def initialize
     @grid = Array.new(8) { Array.new(8, NullPiece.instance) } #change nil to nullpiece
     setup_board
@@ -73,7 +76,15 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
-    raise InvalidMoveError.new("The selected piece can not move to this position") unless self[start_pos].valid_moves.include?(end_pos)
+    raise InvalidMoveError.new("The selected piece can not move to this position.") unless self[start_pos].moves.include?(end_pos)
+    raise CheckError.new("That move will leave you in check!") unless self[start_pos].valid_moves.include?(end_pos)
+    self[end_pos] = self[start_pos]
+    self[start_pos] = NullPiece.instance
+    self[end_pos].pos = end_pos
+  end
+
+    def move_piece!(start_pos, end_pos)
+    raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
