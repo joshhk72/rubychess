@@ -18,7 +18,7 @@ class Display
   end
 
   def render
-    cursor.get_input
+    system "clear"
     curs = cursor.cursor_pos
     top_string = "  a b c d e f g h  "
     puts top_string
@@ -34,6 +34,7 @@ class Display
       end
       puts row_str
     end
+    cursor.get_input
   end
 
   # 8 board[[0,0-7]]

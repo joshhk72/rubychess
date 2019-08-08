@@ -79,12 +79,10 @@ class Cursor
   def handle_key(key)
     case key
     when :left, :right, :down, :up
-      puts key
       update_pos(MOVES[key])
     when :return, :space
       toggle_selected
       #cursor_pos
-      puts key
     when :ctrl_c
       Process.exit(0)
     end
