@@ -2,7 +2,7 @@ module Stepable
 
   def moves
     potential_moves = move_diffs.map! { |diff| [diff[0] + pos[0], diff[1] + pos[1]] }
-    potential_moves.select! { |move| move[0].between?(0,7) && move[1].between?(0,7) }
+    potential_moves.select! { |move| unless board.valid_pos?([move[0], move[1]]) }
       .reject { |new_pos| board[new_pos].color == color }
   end
 

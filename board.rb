@@ -35,7 +35,10 @@ class Board
       grid[7][idx2] = class_name.new(:white, [7, idx2], self)
     end
   end
-  # c
+  
+  def valid_pos?(pos)
+    pos[0].between?(0,7) && pos[1].between?(0.7)
+  end
 
   def add_piece(piece, pos)
     self[pos] = piece
