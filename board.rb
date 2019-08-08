@@ -44,7 +44,31 @@ class Board
     self[pos] = piece
   end
 
+  def find_king(color)
+    grid.each_with_index do |row, idx1|
+      row.each_with_index do |square, idx2|
+        return [idx1, idx2] if self[[idx1, idx2]].class == King && self[[idx1,idx2]].color == color
+      end
+    end
+    nil
+  end
+
+  def in_check?(color)
+    pieces.each do |piece|
+      return true if piece.moves.include?(find_king(color))
+    end
+    false
+  end
+
   def checkmate?(color)
+    return false if !in_check?(color)
+
+    player_pieces = pieces.select { |piece| piece.color == color }
+    player_pieces.all? { |piece| piece.valid_moves.empty? }
+  end
+
+  def pieces
+    grid.flatten.reject { |piece| piece.is_a?(NullPiece) }
   end
 
   def move_piece(start_pos, end_pos)
