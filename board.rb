@@ -35,6 +35,7 @@ class Board
       grid[7][idx2] = class_name.new(:white, [7, idx2], self)
     end
   end
+  # c
 
   def add_piece(piece, pos)
     self[pos] = piece
