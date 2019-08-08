@@ -39,12 +39,14 @@ module Slideable
     row, col = pos
     
     col += dx 
-    row -= dy 
+    row -= dy
+    return [] if !row.between?(0,7) || !col.between?(0,7)
     
     until !board[[row, col]].is_a?(NullPiece)
       unblocked_moves << [row, col]
       col += dx
       row -= dy
+      return unblocked_moves if !row.between?(0,7) || !col.between?(0,7)
     end
     unblocked_moves << [row, col] unless color == board[[row,col]].color
 

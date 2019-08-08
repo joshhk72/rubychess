@@ -24,7 +24,6 @@ class Board
 
   def setup_board
     piece_order = ['Rook', 'Knight', 'Bishop', 'King', 'Queen', 'Bishop', 'Knight', 'Rook']
-
     piece_order.each_with_index do |piece_name, idx|
       class_name = Object.const_get(piece_name)
       grid[0][idx] = class_name.new(:black, [0, idx], self)
@@ -46,7 +45,7 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
-    #raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].valid_moves.include?(end_pos)
+    raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].valid_moves.include?(end_pos)
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
@@ -58,6 +57,14 @@ class Board
 
   def []=(position, piece)
     grid[position[0]][position[1]] = piece
+  end
+
+  def inspect
+    grid.map do |row|
+      row.map do |piece|
+        piece.symbol
+      end
+    end
   end
 
   private

@@ -19,6 +19,9 @@ class Piece
   end
 
   def valid_moves # phase 3 stuff
+    valid_moves = moves.select do |move|
+      move[0].between?(0,7) && move[1].between?(0,7)
+    end
   end
 
   def pos=(val)
