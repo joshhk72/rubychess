@@ -74,6 +74,7 @@ class Board
   def move_piece(start_pos, end_pos)
     raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
     raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].moves.include?(end_pos)
+    # change the above error back to check 'valid_moves' rather than 'moves' later
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
@@ -95,13 +96,24 @@ class Board
     end
   end
 
-  private
+  def deep_dup
+    duped = Board.new # copies board
+    #duped.grid = grid.dup # updates reference to @grid for new board
+    grid.each_with_index do |row, idx1| # dupes pieces
+      row.each_with_index do |piece, idx2|
+        if piece.is_a?(NullPiece)
+          duped[[idx1, idx2]] = NullPiece.instance
+        else
+          new_piece = piece.class.new(piece.color, piece.pos.dup, duped)
+          duped[[idx1, idx2]] = new_piece
+        end
+      end
+    end
+    duped
+  end
 
-  attr_reader :grid
+  protected
+
+  attr_accessor :grid
 
 end
-# test = Board.new()
-# test.move_piece( [6,5], [5,5] )
-# test.move_piece( [1,4], [3,4] )
-# test.move_piece( [6, 6], [4, 6] )
-# test.move_piece( [0, 3], [4, 7] )
