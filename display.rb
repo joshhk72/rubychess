@@ -44,10 +44,10 @@ class Display
   attr_reader :board, :cursor
 end
 
-test = Board.new
-disp = Display.new(test)
-t = true
+# test = Board.new
+# disp = Display.new(test)
+# t = true
 
-until t == false
-  disp.render
-end
+# until t == false
+#   disp.render
+# end

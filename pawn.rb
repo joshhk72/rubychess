@@ -23,6 +23,7 @@ class Pawn < Piece
 
   def side_attacks
     possible_moves = [[pos[0] + forward_dir, pos[1] + 1], [pos[0] + forward_dir, pos[1] - 1]]
+    possible_moves.select! { |side_position| board.valid_pos?(side_position) }
     possible_moves.select do |side_position|
       board[side_position].color != color && !board[side_position].is_a?(NullPiece)
     end

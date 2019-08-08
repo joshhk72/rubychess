@@ -23,7 +23,7 @@ class Board
   end
 
   def setup_board
-    piece_order = ['Rook', 'Knight', 'Bishop', 'King', 'Queen', 'Bishop', 'Knight', 'Rook']
+    piece_order = ['Rook', 'Knight', 'Bishop', 'Queen', 'King', 'Bishop', 'Knight', 'Rook']
     piece_order.each_with_index do |piece_name, idx|
       class_name = Object.const_get(piece_name)
       grid[0][idx] = class_name.new(:black, [0, idx], self)
@@ -73,7 +73,7 @@ class Board
 
   def move_piece(start_pos, end_pos)
     raise NoPieceError.new("There is no piece at this chosen position") if self[start_pos].is_a?(NullPiece)
-    raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].valid_moves.include?(end_pos)
+    raise InvalidMoveError.new("The selected piece can not move to this position") if !self[start_pos].moves.include?(end_pos)
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
@@ -100,3 +100,8 @@ class Board
   attr_reader :grid
 
 end
+# test = Board.new()
+# test.move_piece( [6,5], [5,5] )
+# test.move_piece( [1,4], [3,4] )
+# test.move_piece( [6, 6], [4, 6] )
+# test.move_piece( [0, 3], [4, 7] )
