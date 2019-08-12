@@ -1,5 +1,3 @@
-#https://assets.aaonline.io/fullstack/ruby/assets/Chess_Diagram.png
-
 require_relative 'piece'
 require_relative 'rook'
 require_relative 'queen'
