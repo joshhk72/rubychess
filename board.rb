@@ -18,9 +18,6 @@ end
 class CheckError < ArgumentError
 end
 
-class ColorError < ArgumentError
-end
-
 class Board
   attr_accessor :selected_from, :selected_to
 
