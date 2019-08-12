@@ -25,31 +25,33 @@ class Game
     current_player == player_1 ? player_2 : player_1
   end
 
-  def play
+  def play_turn
+    until board.selected_from && board.selected_to
+      system "clear"
+      puts "#{@current_player.color.capitalize}'s turn."
+      display.render
+    end
+    if board[board.selected_from].color == other_player.color 
+      raise ColorError.new("You must select pieces of your own color!")
+    end
+    board.move_piece(board.selected_from, board.selected_to)
+  rescue InvalidMoveError, NoPieceError, CheckError, ColorError => e
+    board.reset_selection
+    puts e.message
+    puts "Press enter to continue"
+    inputs = gets.chomp
+    retry
+  end
+
+  def play_game
     until board.checkmate?(:black) || board.checkmate?(:white)
-      begin
-        until board.selected_from && board.selected_to
-          system "clear"
-          puts "#{@current_player.color.capitalize}'s turn."
-          display.render
-        end
-        if board[board.selected_from].color == other_player.color 
-          raise ColorError.new("You must select pieces of your own color!")
-        end
-        board.move_piece(board.selected_from, board.selected_to)
-      rescue InvalidMoveError, NoPieceError, CheckError, ColorError => e
-        board.reset_selection
-        puts e.message
-        puts "Press enter to continue"
-        inputs = gets.chomp
-        retry
-      end
+      play_turn
       board.reset_selection
       turn_swap
     end
-
   end
+  
 end
 
 game = Game.new
-game.play
+game.play_game
