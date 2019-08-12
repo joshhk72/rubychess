@@ -2,6 +2,9 @@ require_relative 'board'
 require_relative 'player'
 require_relative 'display'
 
+class ColorError < ArgumentError
+end
+
 class Game
   attr_accessor :current_player
   attr_reader :player_1, :player_2, :display, :board
@@ -18,6 +21,10 @@ class Game
     self.current_player = current_player == player_1 ? player_2 : player_1
   end
 
+  def other_player
+    current_player == player_1 ? player_2 : player_1
+  end
+
   def play
     until board.checkmate?(:black) || board.checkmate?(:white)
       begin
@@ -26,8 +33,11 @@ class Game
           puts "#{@current_player.color.capitalize}'s turn."
           display.render
         end
+        if board[board.selected_from].color != current_player.color 
+          raise ColorError.new("You must select pieces of your own color!")
+        end
         board.move_piece(board.selected_from, board.selected_to)
-      rescue InvalidMoveError, NoPieceError, CheckError => e
+      rescue InvalidMoveError, NoPieceError, CheckError, ColorError => e
         board.reset_selection
         puts e.message
         puts "Press enter to continue"
