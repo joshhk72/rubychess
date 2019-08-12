@@ -9,17 +9,17 @@ require_relative 'pawn'
 require_relative 'knight'
 require_relative 'king'
 
+class NoPieceError < StandardError
+end
+
+class InvalidMoveError < ArgumentError
+end
+
+class CheckError < ArgumentError
+end
+
 class Board
   attr_accessor :selected_from, :selected_to
-
-  class NoPieceError < StandardError
-  end
-
-  class InvalidMoveError < ArgumentError
-  end
-
-  class CheckError < ArgumentError
-  end
 
   def initialize
     @grid = Array.new(8) { Array.new(8, NullPiece.instance) } #change nil to nullpiece
