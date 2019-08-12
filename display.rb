@@ -38,8 +38,6 @@ class Display
       end
       puts row_str
     end
-    p board.selected_from
-    p board.selected_to
     cursor.get_input
   end
 

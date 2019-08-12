@@ -27,7 +27,7 @@ class Game
           display.render
         end
         board.move_piece(board.selected_from, board.selected_to)
-      rescue => e #InvalidMoveError, NoPieceError, CheckError => e
+      rescue InvalidMoveError, NoPieceError, CheckError => e
         board.reset_selection
         puts e.message
         puts "Press enter to continue"
