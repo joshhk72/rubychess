@@ -1,10 +1,8 @@
 module Stepable
 
   def moves
-    potential_moves = move_diffs.map! { |diff| [diff[0] + pos[0], diff[1] + pos[1]] }
-    selected = potential_moves.select! { |move| board.valid_pos?([move[0], move[1]]) }
-    p selected
-    selected.reject { |new_pos| board[new_pos].color == color }
+    potential = move_diffs.map { |diff| [diff[0] + pos[0], diff[1] + pos[1]] }
+    selected = potential.select { |new_p| board.valid_pos?(new_p) && board[new_p].color != color  }
   end
 
   def move_diffs
