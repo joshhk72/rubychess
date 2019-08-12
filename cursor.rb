@@ -82,7 +82,11 @@ class Cursor
       update_pos(MOVES[key])
     when :return, :space
       toggle_selected
-      #cursor_pos
+      if selected
+        board.selected_from = cursor_pos
+      else
+        board.selected_to = cursor_pos
+      end
     when :ctrl_c
       Process.exit(0)
     end

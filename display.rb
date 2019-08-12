@@ -3,6 +3,7 @@ require_relative 'cursor'
 require 'colorize'
 
 class Display
+
   def initialize(board)
     @board = board
     @size = 7
@@ -17,8 +18,11 @@ class Display
     :red
   end
 
+  def get_input
+    cursor.get_input
+  end
+
   def render
-    system "clear"
     curs = cursor.cursor_pos
     top_string = "  a b c d e f g h  "
     puts top_string
@@ -34,6 +38,8 @@ class Display
       end
       puts row_str
     end
+    p board.selected_from
+    p board.selected_to
     cursor.get_input
   end
 
@@ -43,11 +49,3 @@ class Display
 
   attr_reader :board, :cursor
 end
-
-# test = Board.new
-# disp = Display.new(test)
-# t = true
-
-# until t == false
-#   disp.render
-# end

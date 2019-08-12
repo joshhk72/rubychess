@@ -16,7 +16,7 @@ class HumanPlayer < Player
   end
 
   def make_move
-    move = display.cursor.get_input
+    move = display.get_input
   end
 
   private
