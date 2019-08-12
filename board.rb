@@ -10,6 +10,7 @@ require_relative 'knight'
 require_relative 'king'
 
 class Board
+  attr_accessor :selected_from, :selected_to
 
   class NoPieceError < StandardError
   end
@@ -23,6 +24,8 @@ class Board
   def initialize
     @grid = Array.new(8) { Array.new(8, NullPiece.instance) } #change nil to nullpiece
     setup_board
+    @selected_from = nil
+    @selected_to = nil
   end
 
   def setup_board
@@ -37,6 +40,12 @@ class Board
       class_name = Object.const_get(piece_name2)
       grid[7][idx2] = class_name.new(:white, [7, idx2], self)
     end
+  end
+
+  def reset_selection
+    @selected_from = nil
+    @selected_to = nil
+    nil
   end
   
   def valid_pos?(pos)
@@ -81,6 +90,7 @@ class Board
     self[end_pos] = self[start_pos]
     self[start_pos] = NullPiece.instance
     self[end_pos].pos = end_pos
+    self[end_pos].at_start_row = false if self[end_pos].class == Pawn
   end
 
     def move_piece!(start_pos, end_pos)

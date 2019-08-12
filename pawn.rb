@@ -2,6 +2,8 @@ require_relative 'piece'
 
 class Pawn < Piece
 
+  attr_accessor :at_start_row
+
   def initialize(color, pos, board)
     super(color, pos, board)
     @symbol = :P
@@ -36,14 +38,4 @@ class Pawn < Piece
       -1
     end
   end
-
-  # def move_dirs
-  #   fd = forward_dir
-  #   [[fd, 0], [fd, 1], [fd, -1]]
-  # end
-
-  private
-
-  attr_reader :at_start_row
-
 end
