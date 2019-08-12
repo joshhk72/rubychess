@@ -32,7 +32,9 @@ class Display
       (0..7).each do |idx2|
         row_str += " "
         pos = [idx1, idx2]
-        sym_str = board[pos].symbol.to_s
+        piece = board[pos]
+        sym_str = piece.symbol.to_s
+        sym_str = sym_str.colorize(piece.color)
         sym_str = sym_str.colorize(color_cursor(pos)) if curs == pos
         row_str += sym_str
       end

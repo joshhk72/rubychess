@@ -10,7 +10,7 @@ class Game
     @board = Board.new
     @display = Display.new(@board)
     @player_1 = HumanPlayer.new(:black, @display)
-    @player_1 = HumanPlayer.new(:white, @display)
+    @player_2 = HumanPlayer.new(:white, @display)
     @current_player = @player_1
   end
 
@@ -23,7 +23,7 @@ class Game
       begin
         until board.selected_from && board.selected_to
           system "clear"
-          puts "#{@current_player}'s turn."
+          puts "#{@current_player.color.capitalize}'s turn."
           display.render
         end
         board.move_piece(board.selected_from, board.selected_to)
