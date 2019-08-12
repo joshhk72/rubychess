@@ -8,6 +8,5 @@ class King < Piece
     super(color, pos, board)
     @symbol = :K
 
-
   end
 end
