@@ -10,7 +10,7 @@ class Pawn < Piece
     @at_start_row = true
   end
 
-  def moves #add later
+  def moves
     forward_steps + side_attacks
   end
 

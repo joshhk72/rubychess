@@ -18,7 +18,7 @@ class Piece
     return self.is_a?(NullPiece)
   end
 
-  def valid_moves # phase 3 stuff
+  def valid_moves
     moves.reject do |future_pos|
       new_board = board.deep_dup
       new_board.move_piece!(pos, future_pos)

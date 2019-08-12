@@ -43,8 +43,6 @@ class Display
     cursor.get_input
   end
 
-  # 8 board[[0,0-7]]
-
   private
 
   attr_reader :board, :cursor
