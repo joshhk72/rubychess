@@ -49,8 +49,11 @@ class Game
       board.reset_selection
       turn_swap
     end
+    system "clear"
+    puts "#{other_player.color.capitalize}'s victory!"
+    display.render
   end
-  
+
 end
 
 game = Game.new
