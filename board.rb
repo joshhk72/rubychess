@@ -22,7 +22,7 @@ class Board
   attr_accessor :selected_from, :selected_to
 
   def initialize
-    @grid = Array.new(8) { Array.new(8, NullPiece.instance) } #change nil to nullpiece
+    @grid = Array.new(8) { Array.new(8, NullPiece.instance) }
     setup_board
     @selected_from = nil
     @selected_to = nil
