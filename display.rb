@@ -7,7 +7,7 @@ class Display
   def initialize(board)
     @board = board
     @size = 7
-    @cursor = Cursor.new([0,0], board)
+    @cursor = Cursor.new([7,0], board)
   end
 
   def color_cursor(pos)
