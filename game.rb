@@ -33,7 +33,7 @@ class Game
           puts "#{@current_player.color.capitalize}'s turn."
           display.render
         end
-        if board[board.selected_from].color != current_player.color 
+        if board[board.selected_from].color == other_player.color 
           raise ColorError.new("You must select pieces of your own color!")
         end
         board.move_piece(board.selected_from, board.selected_to)
